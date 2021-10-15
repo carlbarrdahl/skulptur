@@ -4,7 +4,7 @@ const CeramicContext = createContext<any>({})
 
 export const useCeramic = () => useContext(CeramicContext)
 
-export default function CeramicProvider({ children }) {
+const CeramicProvider = ({ children }) => {
   const [isLoading, setLoading] = useState(true)
   const [state, setState] = useState({})
 
@@ -24,3 +24,5 @@ export default function CeramicProvider({ children }) {
     <CeramicContext.Provider value={state}>{children}</CeramicContext.Provider>
   )
 }
+
+export default CeramicProvider

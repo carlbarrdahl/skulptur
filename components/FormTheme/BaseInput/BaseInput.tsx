@@ -1,8 +1,8 @@
-import React from "react";
-import { Input, InputProps } from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import { WidgetProps } from "@rjsf/core";
-import { JSONSchema7, JSONSchema7Object, JSONSchema7Array } from "json-schema";
+import React from "react"
+import { Input, InputProps } from "@chakra-ui/react"
+import PropTypes from "prop-types"
+import { WidgetProps } from "@rjsf/core"
+import { JSONSchema7, JSONSchema7Object, JSONSchema7Array } from "json-schema"
 
 type TWidgetProps = WidgetProps & {
   schema: JSONSchema7 & {
@@ -13,24 +13,24 @@ type TWidgetProps = WidgetProps & {
       | JSONSchema7Object
       | JSONSchema7Array
       | string[]
-      | any;
-  };
-};
+      | any
+  }
+}
 
 type ExtInputProps = InputProps & {
-  list: string | undefined;
+  list: string | undefined
   // onChange: any;
   // onBlur: any;
   // onFocus: any;
-};
+}
 
-type TBaseInput = TWidgetProps & ExtInputProps;
+type TBaseInput = TWidgetProps & ExtInputProps
 
 const BaseInput: React.FC<TBaseInput> = ({ id, ...props }) => {
   // Note: since React 15.2.0 we can't forward unknown element attributes, so we
   // exclude the "options" and "schema" ones here.
   if (!id) {
-    throw new Error(`no id for props ${JSON.stringify(props)}`);
+    throw new Error(`no id for props ${JSON.stringify(props)}`)
   }
   const {
     value,
@@ -42,60 +42,60 @@ const BaseInput: React.FC<TBaseInput> = ({ id, ...props }) => {
     options,
     schema,
     ..._inputProps
-  } = props;
+  } = props
 
   interface IInput extends WidgetProps {
-    type: any;
-    step: string | number;
-    autoComplete: any;
-    min: string | number;
-    max: string | number;
+    type: any
+    step: string | number
+    autoComplete: any
+    min: string | number
+    max: string | number
   }
-  const inputProps: Partial<IInput> = _inputProps;
+  const inputProps: Partial<IInput> = _inputProps
 
   // If options.inputType is set use that as the input type
   if (options.inputType) {
-    inputProps.type = options.inputType;
+    inputProps.type = options.inputType
   } else if (!inputProps.type) {
     // If the schema is of type number or integer, set the input type to number
     if (schema.type === "number") {
-      inputProps.type = "number";
+      inputProps.type = "number"
       // Setting step to 'any' fixes a bug in Safari where decimals are not
       // allowed in number inputs
-      inputProps.step = "any";
+      inputProps.step = "any"
     } else if (schema.type === "integer") {
-      inputProps.type = "number";
+      inputProps.type = "number"
       // Since this is integer, you always want to step up or down in multiples
       // of 1
-      inputProps.step = "1";
+      inputProps.step = "1"
     } else {
-      inputProps.type = "text";
+      inputProps.type = "text"
     }
   }
 
   if (options.autocomplete) {
-    inputProps.autoComplete = options.autocomplete;
+    inputProps.autoComplete = options.autocomplete
   }
 
   // If multipleOf is defined, use this as the step value. This mainly improves
   // the experience for keyboard users (who can use the up/down KB arrows).
   if (schema.multipleOf) {
-    inputProps.step = schema.multipleOf;
+    inputProps.step = schema.multipleOf
   }
 
   if (typeof schema.minimum !== "undefined") {
-    inputProps.min = schema.minimum;
+    inputProps.min = schema.minimum
   }
 
   if (typeof schema.maximum !== "undefined") {
-    inputProps.max = schema.maximum;
+    inputProps.max = schema.maximum
   }
 
   const _onChange = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    return props.onChange(value === "" ? options.emptyValue : value);
-  };
+    return props.onChange(value === "" ? options.emptyValue : value)
+  }
 
   return (
     <>
@@ -130,34 +130,7 @@ const BaseInput: React.FC<TBaseInput> = ({ id, ...props }) => {
         </datalist>
       ) : null}
     </>
-  );
-};
-
-BaseInput.defaultProps = {
-  required: false,
-  disabled: false,
-  readonly: false,
-  autofocus: false,
-  placeholder: undefined,
-  onChange: undefined,
-  onBlur: undefined,
-  onFocus: undefined,
-  value: undefined,
-};
-
-if (process.env.NODE_ENV !== "production") {
-  BaseInput.propTypes = {
-    id: PropTypes.string.isRequired,
-    placeholder: PropTypes.string,
-    value: PropTypes.any,
-    // required: PropTypes.bool,
-    // disabled: PropTypes.bool,
-    // readonly: PropTypes.bool,
-    // autofocus: PropTypes.bool,
-    // onChange: PropTypes.func,
-    // onBlur: PropTypes.func,
-    // onFocus: PropTypes.func
-  };
+  )
 }
 
-export default BaseInput;
+export default BaseInput

@@ -58,7 +58,7 @@ export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <Flex p={4} bg={"gray.800"}>
+    <Flex p={4} bg={"gray.900"}>
       <Flex p="2" alignItems="center">
         <Heading size="md" color={"white"} mr={16}>
           <Link as={NextLink} href="/">
@@ -70,11 +70,6 @@ export default function NavBar() {
       <Flex alignItems="center">
         <NavBarLink href={"/forms/new"}>New Form</NavBarLink>
         <NavBarLink href={"/forms"}>My Forms</NavBarLink>
-        <Box>
-          <Button variant="solid" mr={4}>
-            Create Form
-          </Button>
-        </Box>
         <Box>
           <Menu>
             <MenuButton

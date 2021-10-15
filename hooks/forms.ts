@@ -53,16 +53,18 @@ export function useListForms() {
 
   return useQuery("listForms", () => {
     console.log("listing forms")
-    return dataStore.get("forms").then((formsList) => formsList?.forms ?? [])
+    return dataStore
+      .get("forms")
+      .then((formsList: any) => formsList?.forms ?? [])
   })
 }
 
-export function useViewForm(id: string) {
+export function useViewForm(id: any) {
   const { ceramic } = useCeramic()
 
   return useQuery(["forms", id], () => {
     console.log("loading form:", id)
-    return TileDocument.load(ceramic, id).then((doc) => {
+    return TileDocument.load(ceramic, id).then((doc: any) => {
       console.log("loading schema:", doc.content.schemaURI)
       return TileDocument.load(ceramic, doc.content.schemaURI).then(
         (schema) => ({
@@ -77,7 +79,7 @@ export function useViewForm(id: string) {
 export function useCreateResponse() {
   const { dataModel, dataStore } = useCeramic()
 
-  return useMutation(({ formId, data }) => {
+  return useMutation(({ formId, data }: any) => {
     console.log("creating response", formId, data)
 
     return Promise.all([
@@ -123,7 +125,7 @@ export function useCreateResponse() {
   })
 }
 
-export function useListResponses(formId) {
+export function useListResponses(formId: any) {
   const { ceramic, dataStore } = useCeramic()
   return useQuery("formResponses", () => {
     console.log("loading server form responses", SERVER_DID)

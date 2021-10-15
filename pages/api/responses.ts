@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next"
 
 import { CeramicClient } from "@ceramicnetwork/http-client"
@@ -11,12 +10,12 @@ import { fromString } from "uint8arrays"
 
 import dotenv from "dotenv"
 
-import modelAliases from "../../ceramic/model"
+import modelAliases from "../../ceramic/model.json"
 
 dotenv.config()
 
 // The seed must be provided as an environment variable
-const seed = fromString(process.env.SEED, "base16")
+const seed = fromString(process.env.SEED || "", "base16")
 // Create and authenticate the DID
 const did = new DID({
   provider: new Ed25519Provider(seed),
@@ -30,13 +29,9 @@ ceramic.did = did
 const model = new DataModel({ ceramic, model: modelAliases })
 const store = new DIDDataStore({ ceramic, model })
 
-type Data = {
-  name: string
-}
-
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<any>
 ) {
   const { formId, responseId } = req.body
 

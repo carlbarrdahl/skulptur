@@ -7,8 +7,6 @@ import Link from "../../components/Link"
 
 const FormsListPage: NextPage = () => {
   const { isLoading, error, data = [] } = useListForms()
-  const responses = useListResponses()
-  console.log("forms", data, responses.data)
   return (
     <Box w="100%">
       <Heading size="md" mb={16}>

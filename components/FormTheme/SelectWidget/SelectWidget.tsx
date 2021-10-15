@@ -1,11 +1,11 @@
-import { Select } from "@chakra-ui/react";
-import React from "react";
-import PropTypes from "prop-types";
+import { Select } from "@chakra-ui/react"
+import React from "react"
+import PropTypes from "prop-types"
 //@ts-ignore
-import { guessType, asNumber } from "@rjsf/core/dist/cjs/utils";
-import { WidgetProps } from "@rjsf/core";
+import { guessType, asNumber } from "@rjsf/core/dist/cjs/utils"
+import { WidgetProps } from "@rjsf/core"
 
-const nums = new Set(["number", "integer"]);
+const nums = new Set(["number", "integer"])
 
 /**
  * This is a silly limitation in the DOM where option change event values are
@@ -16,32 +16,32 @@ function processValue(
   value: string | any[]
 ) {
   // "enum" is a reserved word, so only "type" and "items" can be destructured
-  const { type, items } = schema;
+  const { type, items } = schema
   if (value === "") {
-    return undefined;
+    return undefined
   }
   if (type === "array" && items && nums.has(items.type)) {
-    return (value as any[]).map(asNumber);
+    return (value as any[]).map(asNumber)
   }
   if (type === "boolean") {
-    return value === "true";
+    return value === "true"
   }
   if (type === "number") {
-    return asNumber(value);
+    return asNumber(value)
   }
 
   // If type is undefined, but an enum is present, try and infer the type from
   // the enum values
   if (schema.enum) {
     if (schema.enum.every((x: any) => guessType(x) === "number")) {
-      return asNumber(value);
+      return asNumber(value)
     }
     if (schema.enum.every((x: any) => guessType(x) === "boolean")) {
-      return value === "true";
+      return value === "true"
     }
   }
 
-  return value;
+  return value
 }
 
 function getValue(
@@ -52,10 +52,10 @@ function getValue(
     //@ts-ignore
     return [].slice
       .call(event.target.options)
-      .filter((o) => o.selected)
-      .map((o) => o.value);
+      .filter((o: any) => o.selected)
+      .map((o: any) => o.value)
   }
-  return event.target.value;
+  return event.target.value
 }
 
 function SelectWidget(props: WidgetProps) {
@@ -73,9 +73,9 @@ function SelectWidget(props: WidgetProps) {
     onBlur,
     onFocus,
     placeholder,
-  } = props;
-  const { enumOptions, enumDisabled } = options;
-  const emptyValue = multiple ? [] : "";
+  } = props
+  const { enumOptions, enumDisabled } = options
+  const emptyValue = multiple ? [] : ""
   return (
     <Select
       id={id}
@@ -88,20 +88,20 @@ function SelectWidget(props: WidgetProps) {
       onBlur={
         onBlur &&
         ((event) => {
-          const newValue = getValue(event, multiple);
-          onBlur(id, processValue(schema, newValue));
+          const newValue = getValue(event, multiple)
+          onBlur(id, processValue(schema, newValue))
         })
       }
       onFocus={
         onFocus &&
         ((event) => {
-          const newValue = getValue(event, multiple);
-          onFocus(id, processValue(schema, newValue));
+          const newValue = getValue(event, multiple)
+          onFocus(id, processValue(schema, newValue))
         })
       }
       onChange={(event) => {
-        const newValue = getValue(event, multiple);
-        onChange(processValue(schema, newValue));
+        const newValue = getValue(event, multiple)
+        onChange(processValue(schema, newValue))
       }}
     >
       {!multiple && schema.default === undefined && (
@@ -109,16 +109,16 @@ function SelectWidget(props: WidgetProps) {
       )}
       {(enumOptions as any[]).map(({ value, label }, i) => {
         const disabled =
-          enumDisabled && (enumDisabled as string[]).indexOf(value) !== -1;
+          enumDisabled && (enumDisabled as string[]).indexOf(value) !== -1
         return (
           // eslint-disable-next-line react/no-array-index-key
           <option key={i} value={value} disabled={disabled as boolean}>
             {label}
           </option>
-        );
+        )
       })}
     </Select>
-  );
+  )
 }
 
 SelectWidget.defaultProps = {
@@ -131,7 +131,7 @@ SelectWidget.defaultProps = {
   onBlur: null,
   onFocus: null,
   // value: null
-};
+}
 
 if (process.env.NODE_ENV !== "production") {
   SelectWidget.propTypes = {
@@ -150,7 +150,7 @@ if (process.env.NODE_ENV !== "production") {
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
     onFocus: PropTypes.func,
-  };
+  }
 }
 
-export default SelectWidget;
+export default SelectWidget

@@ -7,8 +7,8 @@ import { Button } from "@chakra-ui/button"
 
 export default function ViewFormPage() {
   const router = useRouter()
-  const formId = router.query.id
-  const { isLoading, error, data } = useViewForm(formId)
+  const formId = router.query.id || ""
+  const { isLoading, error, data }: any = useViewForm(formId)
   const { mutateAsync: createResponse } = useCreateResponse()
 
   if (isLoading) {
@@ -19,7 +19,7 @@ export default function ViewFormPage() {
   }
   console.log(isLoading, error, data)
 
-  function handleSubmit(data) {
+  function handleSubmit(data: any) {
     console.log(data.formData)
     createResponse({
       formId,

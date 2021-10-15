@@ -1,19 +1,19 @@
-import { Checkbox } from "@chakra-ui/react";
-import { WidgetProps } from "@rjsf/core";
-import React from "react";
-import DescriptionField from "../DescriptionField";
+import { Checkbox } from "@chakra-ui/react"
+import { WidgetProps } from "@rjsf/core"
+import React from "react"
+import DescriptionField from "../DescriptionField"
 
 const CheckboxWidget = (props: WidgetProps) => {
-  const { id, value, disabled, readonly, onChange, onBlur, onFocus } = props;
-  console.log("CHECKBOX", props);
+  const { id, value, disabled, readonly, onChange, onBlur, onFocus } = props
+  console.log("CHECKBOX", props)
   const _onChange = ({
     target: { checked },
-  }: React.ChangeEvent<HTMLInputElement>) => onChange(checked);
+  }: React.ChangeEvent<HTMLInputElement>) => onChange(checked)
   const _onBlur = ({ target: { value } }: React.FocusEvent<HTMLInputElement>) =>
-    onBlur(id, value);
+    onBlur(id, value)
   const _onFocus = ({
     target: { value },
-  }: React.FocusEvent<HTMLInputElement>) => onFocus(id, value);
+  }: React.FocusEvent<HTMLInputElement>) => onFocus(id, value)
 
   return (
     <>
@@ -31,7 +31,7 @@ const CheckboxWidget = (props: WidgetProps) => {
         {props.schema.title}
       </Checkbox>
     </>
-  );
-};
+  )
+}
 
-export default CheckboxWidget;
+export default CheckboxWidget

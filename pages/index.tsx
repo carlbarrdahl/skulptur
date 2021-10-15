@@ -1,35 +1,51 @@
-import { Button } from "@chakra-ui/button"
+import {
+  Button,
+  Box,
+  Flex,
+  Heading,
+  Image,
+  Stack,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react"
 
 import type { NextPage } from "next"
-import Head from "next/head"
 import { useCreateForm, useListForms } from "../hooks/forms"
 
 const Home: NextPage = () => {
   const { mutateAsync: createForm } = useCreateForm()
   const { isLoading, error, data } = useListForms()
-  console.log(isLoading, error, data)
-  function handleCreateForm() {
-    console.log("create form")
-    createForm({
-      title: "Skulptur Form Example 3",
-      description: `This is an example of how a form could look like. You can edit the form to the left and immediately see the changes reflected here.
-    
-    When you click Create Form in the NavBar, a share will be given to send to your friends.`,
-      type: "object",
-      required: ["title"],
-      properties: {
-        title: { type: "string", title: "Title", default: "A new task" },
-        done: { type: "boolean", title: "Done?", default: false },
-      },
-    })
-  }
-  function handleListForms() {
-    console.log("list forms")
-  }
+
   return (
     <div>
-      <Button onClick={handleCreateForm}>Create Form</Button>
-      <Button onClick={handleListForms}>List Forms</Button>
+      <Stack minH={"100vh"} direction={{ base: "column", md: "row" }}>
+        <Flex p={8} flex={1} justify={"center"}>
+          <Stack w={"full"} maxW={"lg"}>
+            <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }} mb={0}>
+              <Text as={"span"} position={"relative"}>
+                Decentralized Forms
+              </Text>
+            </Heading>
+            <Text fontSize={{ base: "md", lg: "lg" }} color={"gray.500"}>
+              Create forms and surveys with json-schemas and share with your
+              friends
+            </Text>
+            <Stack direction={{ base: "column", md: "row" }} spacing={4}>
+              <Button colorScheme="green">Create Form</Button>
+              <Button variant="outline">How It Works</Button>
+            </Stack>
+          </Stack>
+        </Flex>
+        <Flex flex={1}>
+          <Image
+            alt={"Login Image"}
+            objectFit={"cover"}
+            src={
+              "https://images.unsplash.com/photo-1542382257-80dedb725088?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1528&q=80"
+            }
+          />
+        </Flex>
+      </Stack>
     </div>
   )
 }

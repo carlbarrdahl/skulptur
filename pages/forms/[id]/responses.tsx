@@ -9,14 +9,13 @@ import {
   Heading,
   Textarea,
 } from "@chakra-ui/react"
-import type { NextPage } from "next"
 
 import { useListForms, useListResponses } from "../../../hooks/forms"
 
 import Link from "../../../components/Link"
 import { useRouter } from "next/router"
 
-const FormResponsesPage: NextPage = () => {
+const FormResponsesPage = () => {
   const router = useRouter()
   //   const { isLoading, error, data = [] } = useListForms()
   const { isLoading, error, data = [] } = useListResponses(router.query.id)
