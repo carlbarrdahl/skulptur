@@ -1,0 +1,17 @@
+{
+  "definitions": {
+    "forms": "kjzl6cwe1jw147efooh45gp281uu7qx0t3o7fd02pdy0lkrtt6r2dhyogg315pw",
+    "responses": "kjzl6cwe1jw14ackq4zh00t5ra8tlbtooy0xe55zyclp66aez8dsbgi0cv9smo2",
+    "formResponses": "kjzl6cwe1jw1489or96ktc1uz0kkptrs0l7xzr152f8u7yd09xgt25twj6v10fx"
+  },
+  "schemas": {
+    "Form": "ceramic://k3y52l7qbv1frxhk56gnb41d7vd6r4nzgez516u46li2wz01asei19i9z59kh32f4",
+    "Forms": "ceramic://k3y52l7qbv1fryap3dp7b5izzn1wzlzo314aclbpr0wbveqsxqq0ek3ulx3q0gpog",
+    "Response": "ceramic://k3y52l7qbv1frxuh94z9fja7lph83lkxe8rfvayx7gz2zvntrjgcbcllie4gz7hfk",
+    "Responses": "ceramic://k3y52l7qbv1fryh942c6p0rsg9pwmogo4ij5zhvnao5ks8u5zmchecaozihyiv3eo",
+    "FormResponses": "ceramic://k3y52l7qbv1fryfaar2ik125g0wk3urwedp54yao121gjlcihu7ew18a9dsraqozk"
+  },
+  "tiles": {
+    "placeholderForm": "kjzl6cwe1jw14atlu7khzw20y43jz9eymealw73jb4znvxxz162687vfdt6rlyq"
+  }
+}

@@ -1,4 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Skulptur
+
+Decentralized Google Forms built with Ceramic.
+
+## Architecture
+
+- LandingPage
+
+  - NavBar
+    - SignIn
+      - onClick - api.authenticate
+
+- NewFormPage
+
+  - NavBar
+    - CreateFormButton
+      - onClick - api.createForm
+  - Content
+    - SchemaEditor
+    - SchemaPreview
+
+- ViewFormPage
+
+  - NavBar
+  - Content
+    - SchemaPreview
+      - onSubmit - api.submitResponse
+
+- ListFormsPage
 
 ## Getting Started
 
