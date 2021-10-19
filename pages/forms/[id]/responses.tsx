@@ -68,7 +68,7 @@ const FormResponsesPage = () => {
         {!isLoading && res.data ? (
           <SchemaForm
             schema={data?.schema}
-            formData={JSON.parse(res.data[selected - 1].content.data)}
+            formData={JSON.parse(res.data[selected - 1]?.content?.data)}
             onSubmit={console.log}
           >
             {" "}
