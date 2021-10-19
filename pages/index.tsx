@@ -12,6 +12,8 @@ import {
 import type { NextPage } from "next"
 import { useCreateForm, useListForms } from "../hooks/forms"
 
+import NextLink from "next/link"
+
 const Home: NextPage = () => {
   const { mutateAsync: createForm } = useCreateForm()
   const { isLoading, error, data } = useListForms()
@@ -31,7 +33,9 @@ const Home: NextPage = () => {
               friends
             </Text>
             <Stack direction={{ base: "column", md: "row" }} spacing={4}>
-              <Button colorScheme="green">Create Form</Button>
+              <NextLink href={"/forms/new"} passHref>
+                <Button colorScheme="green">Create Form</Button>
+              </NextLink>
               <Button variant="outline">How It Works</Button>
             </Stack>
           </Stack>

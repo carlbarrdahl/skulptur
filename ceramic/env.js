@@ -42,20 +42,20 @@ export async function createSelfIDClient() {
   // const authProvider = new EthereumAuthProvider(provider, address)
   // const did = await client.authenticate(authProvider, true)
 
-  const seed = fromString(
-    "556fa1ca897aa822f2ffb60e23813e21e42089abb375f437244922afe131e76c",
-    // "da44b1b11005e27453b3010861cb578d8603c5d6a360bb029685ee0a4f66b3cc",
-    // "8df07fcd7f0d251137e110e60690e83f4e53e1028d43bd6c8fbd05dbfbf08f66",
-    "base16"
-  )
-  // Create and authenticate the DID
-  const did = new DID({
-    provider: new Ed25519Provider(seed),
-    resolver: getResolver(),
-  })
-  await did.authenticate()
+  // const seed = fromString(
+  //   "556fa1ca897aa822f2ffb60e23813e21e42089abb375f437244922afe131e76c",
+  //   // "da44b1b11005e27453b3010861cb578d8603c5d6a360bb029685ee0a4f66b3cc",
+  //   // "8df07fcd7f0d251137e110e60690e83f4e53e1028d43bd6c8fbd05dbfbf08f66",
+  //   "base16"
+  // )
+  // // Create and authenticate the DID
+  // const did = new DID({
+  //   provider: new Ed25519Provider(seed),
+  //   resolver: getResolver(),
+  // })
+  // await did.authenticate()
 
-  client.ceramic.did = did
+  // client.ceramic.did = did
 
   const manager = new ModelManager(client.ceramic)
   client.manager = manager

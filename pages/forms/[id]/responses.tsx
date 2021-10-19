@@ -7,7 +7,10 @@ import {
   Td,
   Box,
   Heading,
+  Flex,
   Textarea,
+  Button,
+  SkeletonText,
 } from "@chakra-ui/react"
 
 import { useViewForm, useFormResponses } from "../../../hooks/forms"
@@ -19,7 +22,7 @@ const Header = () => {
   const router = useRouter()
   const formId = router.query.id || ""
   const { isLoading, error, data } = useViewForm(formId)
-  console.log({ data })
+
   return (
     <Heading size="md" mb={16}>
       Responses for {data?.title}
@@ -28,14 +31,13 @@ const Header = () => {
 }
 const FormResponsesPage = () => {
   const router = useRouter()
-  //   const { isLoading, error, data = [] } = useListForms()
   const { isLoading, error, data = [] } = useFormResponses(router.query.id)
-  console.log(data)
-  if (isLoading) {
-    return "loading..."
-  }
+
   return (
     <Box w="100%">
+      <Flex justifyContent="flex-end">
+        <Button onClick={() => alert("not implemented")}>Export CSV</Button>
+      </Flex>
       <Header />
       <Table>
         <Thead>
@@ -46,20 +48,37 @@ const FormResponsesPage = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {data.map((response, id) => {
-            // const id = form.id
-            return (
-              <Tr key={id}>
-                <Td>{response.metadata.controllers[0]}</Td>
-                <Td>{new Date(response.content.created).toLocaleString()}</Td>
-                <Td>
-                  <Textarea sx={{ fontFamily: "monospace" }} fontSize={"xs"}>
-                    {JSON.stringify(JSON.parse(response.content.data), null, 2)}
-                  </Textarea>
-                </Td>
-              </Tr>
-            )
-          })}
+          {isLoading ? (
+            <Tr>
+              <Td>
+                <SkeletonText noOfLines={1} />
+              </Td>
+              <Td>
+                <SkeletonText noOfLines={1} />
+              </Td>
+              <Td>
+                <SkeletonText noOfLines={1} />
+              </Td>
+            </Tr>
+          ) : (
+            data.map((response, id) => {
+              return (
+                <Tr key={id}>
+                  <Td>{response.metadata.controllers[0]}</Td>
+                  <Td>{new Date(response.content.created).toLocaleString()}</Td>
+                  <Td>
+                    <Textarea sx={{ fontFamily: "monospace" }} fontSize={"xs"}>
+                      {JSON.stringify(
+                        JSON.parse(response.content.data),
+                        null,
+                        2
+                      )}
+                    </Textarea>
+                  </Td>
+                </Tr>
+              )
+            })
+          )}
         </Tbody>
       </Table>
     </Box>

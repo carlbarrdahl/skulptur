@@ -15,10 +15,14 @@ import {
   MenuButton,
   MenuList,
   useDisclosure,
+  Input,
+  InputGroup,
+  InputRightAddon,
 } from "@chakra-ui/react"
 
 import NextLink from "next/link"
-import { useLogin } from "../hooks/auth"
+import { useState } from "react"
+import { useLogin, useSeedLogin } from "../hooks/auth"
 
 const NavLink = ({ children }) => (
   <Link
@@ -56,9 +60,10 @@ const NavBarLink = ({ children, href }) => {
 }
 
 export default function NavBar() {
+  const [seed, setSeed] = useState("")
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { login, isAuthenticated } = useLogin()
-
+  const { login, isAuthenticated } = useSeedLogin()
+  // const { login, isAuthenticated } = useLogin()
   return (
     <Flex p={4} bg={"gray.900"}>
       <Flex p="2" alignItems="center">
@@ -74,25 +79,38 @@ export default function NavBar() {
         <NavBarLink href={"/forms"}>My Forms</NavBarLink>
         <NavBarLink href={"/responses"}>My Responses</NavBarLink>
         <Box>
-          {false && !isAuthenticated ? (
-            <Button onClick={login}>Login</Button>
-          ) : (
+          {!isAuthenticated ? (
             <Menu>
-              <MenuButton
-                as={Button}
-                rounded={"full"}
-                variant={"link"}
-                cursor={"pointer"}
-                minW={0}
-              >
-                <Avatar bg="gray.100" name="Carl" />
+              <MenuButton>
+                <Button>Login</Button>
               </MenuButton>
               <MenuList>
-                <MenuItem>My Forms</MenuItem>
-                <MenuDivider />
-                <MenuItem>Sign out</MenuItem>
+                <chakra.ul px={6} sx={{ listStyle: "none" }}>
+                  <chakra.li
+                    onClick={(e) => login(e.target.textContent)}
+                    sx={{ _hover: { opacity: 0.5, cursor: "pointer" } }}
+                  >
+                    556fa1ca897aa822f2ffb60e23813e21e42089abb375f437244922afe131e76c
+                  </chakra.li>
+                  <chakra.li
+                    onClick={(e) => login(e.target.textContent)}
+                    sx={{ _hover: { opacity: 0.5, cursor: "pointer" } }}
+                  >
+                    da44b1b11005e27453b3010861cb578d8603c5d6a360bb029685ee0a4f66b3cc
+                  </chakra.li>
+                </chakra.ul>
+                <InputGroup as={"form"} onSubmit={() => login(seed)} px={4}>
+                  <Input
+                    autoFocus
+                    value={seed}
+                    onChange={(e) => setSeed(e.target.value)}
+                    placeholder="Enter seed"
+                  />
+                </InputGroup>
               </MenuList>
             </Menu>
+          ) : (
+            <Avatar bg="gray.100" name="Carl" />
           )}
         </Box>
       </Flex>

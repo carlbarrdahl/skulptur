@@ -43,6 +43,7 @@ export default async function handler(
     console.log("responses", responses)
     return store
       .set("formResponses", {
+        ...responses,
         [formId]: {
           ...responses[formId],
           [responseId]: responseId,
