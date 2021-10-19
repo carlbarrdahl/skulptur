@@ -8,7 +8,7 @@ export default function NotAuthorized({ retry }) {
           Not authorized
         </Heading>
         <Text mb={4} fontSize={"lg"}>
-          Ceramic couldn't authorize. Try logging in and retry
+          Ceramic couldn&apos;t authorize. Try logging in and retry
         </Text>
         <Button onClick={retry}>Retry</Button>
       </Box>

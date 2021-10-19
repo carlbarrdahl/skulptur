@@ -28,10 +28,6 @@ const UserResponsesPage = () => {
     data = [],
     refetch,
   } = useListResponses(router.query.id)
-  console.log(data)
-  // if (isLoading) {
-  //   return "loading..."
-  // }
   return (
     <Container>
       <Heading size="md" mb={16}>
