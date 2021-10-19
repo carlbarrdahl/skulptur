@@ -17,11 +17,17 @@ import { useRouter } from "next/router"
 
 import Link from "../../components/Link"
 import Container from "../../components/Container"
+import NotAuthorized from "../../components/NotAuthorized"
 
 const UserResponsesPage = () => {
   const router = useRouter()
   //   const { isLoading, error, data = [] } = useListForms()
-  const { isLoading, error, data = [] } = useListResponses(router.query.id)
+  const {
+    isLoading,
+    error,
+    data = [],
+    refetch,
+  } = useListResponses(router.query.id)
   console.log(data)
   // if (isLoading) {
   //   return "loading..."
@@ -50,6 +56,12 @@ const UserResponsesPage = () => {
               </Td>
               <Td>
                 <SkeletonText noOfLines={1} />
+              </Td>
+            </Tr>
+          ) : error?.message.includes("not authenticated") ? (
+            <Tr>
+              <Td colSpan={3}>
+                <NotAuthorized retry={refetch} />
               </Td>
             </Tr>
           ) : (

@@ -16,6 +16,7 @@ import {
 import { useViewForm, useFormResponses } from "../../../hooks/forms"
 
 import Link from "../../../components/Link"
+import NotAuthorized from "../../../components/NotAuthorized"
 import { useRouter } from "next/router"
 import Container from "../../../components/Container"
 
@@ -32,8 +33,14 @@ const Header = () => {
 }
 const FormResponsesPage = () => {
   const router = useRouter()
-  const { isLoading, error, data = [] } = useFormResponses(router.query.id)
+  const {
+    isLoading,
+    error,
+    data = [],
+    refetch,
+  } = useFormResponses(router.query.id)
 
+  console.log("errr", error)
   return (
     <Container>
       <Flex justifyContent="flex-end">
@@ -59,6 +66,12 @@ const FormResponsesPage = () => {
               </Td>
               <Td>
                 <SkeletonText noOfLines={1} />
+              </Td>
+            </Tr>
+          ) : error?.message.includes("not authenticated") ? (
+            <Tr>
+              <Td colSpan={3}>
+                <NotAuthorized retry={refetch} />
               </Td>
             </Tr>
           ) : (
