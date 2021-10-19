@@ -4,7 +4,7 @@ import { Text } from "@chakra-ui/react"
 const DescriptionField = ({ description }: any) => {
   if (description) {
     return (
-      <Text fontSize="lg" mb={4} sx={{ whiteSpace: "pre-wrap" }}>
+      <Text fontSize="lg" mb={8} sx={{ whiteSpace: "pre-wrap" }}>
         {description}
       </Text>
     )

@@ -1,11 +1,11 @@
-import React from "react";
+import React from "react"
 import {
   FormHelperText,
   FormControl,
   FormErrorMessage,
   FormLabel,
-} from "@chakra-ui/react";
-import { FieldTemplateProps } from "@rjsf/core";
+} from "@chakra-ui/react"
+import { FieldTemplateProps } from "@rjsf/core"
 
 const FieldTemplate = ({
   id,
@@ -19,7 +19,7 @@ const FieldTemplate = ({
   rawHelp,
   ...props
 }: FieldTemplateProps) => {
-  console.log("FIELD", props.rawDescription);
+  console.log("FIELD", props.rawDescription)
   return (
     <FormControl
       isDisabled={disabled}
@@ -41,6 +41,6 @@ const FieldTemplate = ({
         ))}
       {rawHelp && <FormHelperText id={id}>{rawHelp}</FormHelperText>}
     </FormControl>
-  );
-};
-export default FieldTemplate;
+  )
+}
+export default FieldTemplate

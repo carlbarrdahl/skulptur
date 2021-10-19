@@ -48,8 +48,18 @@ const examples = [
     type: "object",
     required: ["title"],
     properties: {
-      title: { type: "string", title: "Title", default: "A new task" },
-      done: { type: "boolean", title: "Done?", default: false },
+      question: {
+        type: "string",
+        title: "What is the question?",
+      },
+      answer: { type: "string", title: "What is the answer?", default: "42" },
+      rating: {
+        type: "number",
+        title: "Rating",
+        description: "How would you rate",
+        enum: [1, 2, 3, 4, 5],
+      },
+      sure: { type: "boolean", title: "Are you sure?", default: false },
     },
   },
   {
