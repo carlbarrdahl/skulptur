@@ -1,5 +1,4 @@
 import Navbar from "./NavBar"
-import { Container } from "@chakra-ui/react"
 import Head from "next/head"
 
 export default function Layout({ children }) {
@@ -15,7 +14,6 @@ export default function Layout({ children }) {
       </Head>
       <Navbar />
       {children}
-      {/* <Footer /> */}
     </>
   )
 }

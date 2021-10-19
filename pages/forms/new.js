@@ -129,7 +129,7 @@ export default function NewFormPage() {
             }}
           >
             {examples.map((ex, i) => (
-              <option name={i} value={ex.title}>
+              <option key={i} name={i} value={ex.title}>
                 {ex.title}
               </option>
             ))}
