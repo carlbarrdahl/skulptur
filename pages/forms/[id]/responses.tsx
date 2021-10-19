@@ -17,6 +17,7 @@ import { useViewForm, useFormResponses } from "../../../hooks/forms"
 
 import Link from "../../../components/Link"
 import { useRouter } from "next/router"
+import Container from "../../../components/Container"
 
 const Header = () => {
   const router = useRouter()
@@ -34,7 +35,7 @@ const FormResponsesPage = () => {
   const { isLoading, error, data = [] } = useFormResponses(router.query.id)
 
   return (
-    <Box w="100%">
+    <Container>
       <Flex justifyContent="flex-end">
         <Button onClick={() => alert("not implemented")}>Export CSV</Button>
       </Flex>
@@ -81,7 +82,7 @@ const FormResponsesPage = () => {
           )}
         </Tbody>
       </Table>
-    </Box>
+    </Container>
   )
 }
 

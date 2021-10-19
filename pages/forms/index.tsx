@@ -18,6 +18,7 @@ import {
   useListResponses,
 } from "../../hooks/forms"
 
+import Container from "../../components/Container"
 import Link from "../../components/Link"
 import NotAuthorized from "../../components/NotAuthorized"
 
@@ -39,7 +40,7 @@ const FormsListPage: NextPage = () => {
     // return <NotAuthorized retry={refetch} />
   }
   return (
-    <Box w="100%">
+    <Container>
       <Heading size="md" mb={16}>
         My Forms
       </Heading>
@@ -95,7 +96,7 @@ const FormsListPage: NextPage = () => {
           )}
         </Tbody>
       </Table>
-    </Box>
+    </Container>
   )
 }
 

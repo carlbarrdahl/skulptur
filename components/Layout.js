@@ -14,9 +14,7 @@ export default function Layout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <Container as="main" maxW="container.xl" mt={8}>
-        {children}
-      </Container>
+      {children}
       {/* <Footer /> */}
     </>
   )

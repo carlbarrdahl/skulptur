@@ -110,7 +110,7 @@ export default function NavBar() {
               </MenuList>
             </Menu>
           ) : (
-            <Avatar bg="gray.100" name="Carl" />
+            <Avatar bg="gray.600" name={"U"} size="sm" />
           )}
         </Box>
       </Flex>

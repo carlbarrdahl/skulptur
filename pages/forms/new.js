@@ -1,7 +1,17 @@
-import { Button, Box, Heading, Text, Flex, Textarea } from "@chakra-ui/react"
+import {
+  Button,
+  Box,
+  Heading,
+  Text,
+  Flex,
+  Textarea,
+  Select,
+} from "@chakra-ui/react"
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
+
+import Container from "../../components/Container"
 
 import SchemaForm from "../../components/SchemaForm"
 import { useCreateForm } from "../../hooks/forms"
@@ -23,11 +33,69 @@ You can now copy the share link and send to your friend.`,
     done: { type: "boolean", title: "Done?", default: false },
   },
 }
+
+const examples = [
+  {
+    title: "Skulptur Form Example",
+    description: `This is an example of how a form could look like. You can edit the form to the left and immediately see the changes reflected here.
+  
+  When you click Create Form a few things will happen:
+  - A Ceramic Schema based on the json-schema you provided will be created
+  - A Ceramic Tile is created with the title, description and the schema
+  - The created Form id is added to your definitions index
+  
+  You can now copy the share link and send to your friend.`,
+    type: "object",
+    required: ["title"],
+    properties: {
+      title: { type: "string", title: "Title", default: "A new task" },
+      done: { type: "boolean", title: "Done?", default: false },
+    },
+  },
+  {
+    title: "Todo list",
+    description: "Example todo list",
+    type: "object",
+    required: ["title"],
+    properties: {
+      title: {
+        type: "string",
+        title: "Task list title",
+      },
+      tasks: {
+        type: "array",
+        title: "Tasks",
+        items: {
+          type: "object",
+          required: ["title"],
+          properties: {
+            title: {
+              type: "string",
+              title: "Title",
+              description: "A sample title",
+            },
+            details: {
+              type: "string",
+              title: "Task details",
+              description: "Enter the task details",
+            },
+            done: {
+              type: "boolean",
+              title: "Done?",
+              default: false,
+            },
+          },
+        },
+      },
+    },
+  },
+]
+
 // Add Quicktype to enable import or convert js object
 export default function NewFormPage() {
   const router = useRouter()
   const { isLoading, mutateAsync: createForm } = useCreateForm()
-  const [schema, setSchema] = useState(JSON.stringify(initialSchema, null, 2))
+  const [schema, setSchema] = useState(JSON.stringify(examples[0], null, 2))
 
   function handleChange(e) {
     console.log("Updating schema")
@@ -46,8 +114,27 @@ export default function NewFormPage() {
   }
 
   return (
-    <>
-      <Flex justifyContent="flex-end">
+    <Container>
+      <Flex justifyContent="space-between" mb={4}>
+        <Box>
+          <Select
+            onChange={(e) => {
+              setSchema(
+                JSON.stringify(
+                  examples.find((ex) => ex.title === e.target.value),
+                  null,
+                  2
+                )
+              )
+            }}
+          >
+            {examples.map((ex, i) => (
+              <option name={i} value={ex.title}>
+                {ex.title}
+              </option>
+            ))}
+          </Select>
+        </Box>
         <Box>
           <Button onClick={() => handleCreateForm(JSON.parse(schema))}>
             Create Form
@@ -65,6 +152,7 @@ export default function NewFormPage() {
           >
             Editor
           </Heading>
+
           <Textarea
             style={{ fontFamily: "monospace" }}
             width="100%"
@@ -92,7 +180,7 @@ export default function NewFormPage() {
           </FormWithError>
         </Box>
       </Flex>
-    </>
+    </Container>
   )
 }
 

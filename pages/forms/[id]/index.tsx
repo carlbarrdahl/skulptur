@@ -4,6 +4,7 @@ import { useViewForm, useCreateResponse } from "../../../hooks/forms"
 
 import SchemaForm from "../../../components/SchemaForm"
 import { Button } from "@chakra-ui/button"
+import Container from "../../../components/Container"
 
 export default function ViewFormPage() {
   const router = useRouter()
@@ -31,10 +32,10 @@ export default function ViewFormPage() {
     }).then(() => router.push(`/forms/${formId}/thanks`))
   }
   return (
-    <div>
+    <Container>
       <SchemaForm schema={data.schema} onSubmit={handleSubmit}>
         <Button type="submit">Submit</Button>
       </SchemaForm>
-    </div>
+    </Container>
   )
 }

@@ -34,7 +34,17 @@ const Home: NextPage = () => {
             </Text>
             <Stack direction={{ base: "column", md: "row" }} spacing={4}>
               <NextLink href={"/forms/new"} passHref>
-                <Button colorScheme="green">Create Form</Button>
+                <Button
+                  bg="gray.800"
+                  color={"gray.100"}
+                  sx={{
+                    _hover: {
+                      bg: "gray.600",
+                    },
+                  }}
+                >
+                  Create Form
+                </Button>
               </NextLink>
               <Button variant="outline">How It Works</Button>
             </Stack>
