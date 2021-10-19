@@ -65,7 +65,7 @@ const FormResponsesPage = () => {
           </Flex>
           <Button onClick={() => alert("not implemented")}>Export CSV</Button>
         </Flex>
-        {!isLoading && res.data ? (
+        {!isLoading && res.data.length ? (
           <SchemaForm
             schema={data?.schema}
             formData={JSON.parse(res.data[selected - 1]?.content?.data)}
