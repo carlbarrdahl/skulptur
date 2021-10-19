@@ -10,7 +10,9 @@
     "bootstrap": "node --experimental-json-modules ./bootstrap.mjs"
   },
   "dependencies": {
+    "@3id/connect": "^0.2.5",
     "@ceramicnetwork/http-client": "^1.4.0",
+    "@ceramicstudio/multiauth": "^0.2.3",
     "@chakra-ui/icons": "^1.0.15",
     "@chakra-ui/react": "^1.6.9",
     "@emotion/react": "^11",

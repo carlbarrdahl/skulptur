@@ -1,11 +1,11 @@
-import { Link } from "@chakra-ui/react"
+import { Link as ChakraLink } from "@chakra-ui/react"
 import NextLink from "next/link"
 
-const LinkComponent = ({ href, children }) => {
+const Link = ({ href, children, ...props }) => {
   return (
-    <Link as={NextLink} href={href}>
-      {children}
-    </Link>
+    <NextLink href={href} passHref>
+      <ChakraLink {...props}>{children}</ChakraLink>
+    </NextLink>
   )
 }
-export default LinkComponent
+export default Link

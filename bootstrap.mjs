@@ -78,6 +78,12 @@ const formsSchemaID = await manager.createSchema("Forms", {
             title: "title",
             maxLength: 100,
           },
+          created: {
+            type: "string",
+            format: "date-time",
+            title: "created",
+            maxLength: 30,
+          },
         },
       },
     },
@@ -204,6 +210,16 @@ await manager.createTile(
 
 // Write model to JSON file
 const model = await manager.toPublished()
-await writeFile("./ceramic/model.json", JSON.stringify(model, null, 2))
+await writeFile(
+  "./ceramic/model.json",
+  JSON.stringify(
+    {
+      ...model,
+      did: did.id.toString(),
+    },
+    null,
+    2
+  )
+)
 
 console.log("Model written to src/model.json file:", model)

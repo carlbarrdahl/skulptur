@@ -10,7 +10,12 @@ const initialSchema = {
   title: "Skulptur Form Example",
   description: `This is an example of how a form could look like. You can edit the form to the left and immediately see the changes reflected here.
 
-When you click Create Form in the NavBar, a share will be given to send to your friends.`,
+When you click Create Form a few things will happen:
+- A Ceramic Schema based on the json-schema you provided will be created
+- A Ceramic Tile is created with the title, description and the schema
+- The created Form id is added to your definitions index
+
+You can now copy the share link and send to your friend.`,
   type: "object",
   required: ["title"],
   properties: {
@@ -21,7 +26,7 @@ When you click Create Form in the NavBar, a share will be given to send to your 
 // Add Quicktype to enable import or convert js object
 export default function NewFormPage() {
   const router = useRouter()
-  const { mutateAsync: createForm } = useCreateForm()
+  const { isLoading, mutateAsync: createForm } = useCreateForm()
   const [schema, setSchema] = useState(JSON.stringify(initialSchema, null, 2))
 
   function handleChange(e) {
@@ -36,13 +41,21 @@ export default function NewFormPage() {
     })
   }
 
+  if (isLoading) {
+    return <pre>Creating form...</pre>
+  }
+
   return (
     <>
-      <Button onClick={() => handleCreateForm(JSON.parse(schema))}>
-        Create Form
-      </Button>
+      <Flex justifyContent="flex-end">
+        <Box>
+          <Button onClick={() => handleCreateForm(JSON.parse(schema))}>
+            Create Form
+          </Button>
+        </Box>
+      </Flex>
 
-      <Flex flex={1} minW="100%" height={400}>
+      <Flex flex={1} minW="100%" height={"70vh"}>
         <Box width={["100%"]}>
           <Heading
             size="xs"

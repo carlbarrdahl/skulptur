@@ -10,37 +10,29 @@ import {
   Textarea,
 } from "@chakra-ui/react"
 
-import { useViewForm, useFormResponses } from "../../../hooks/forms"
+import { useListResponses } from "../../hooks/forms"
 
-import Link from "../../../components/Link"
 import { useRouter } from "next/router"
 
-const Header = () => {
-  const router = useRouter()
-  const formId = router.query.id || ""
-  const { isLoading, error, data } = useViewForm(formId)
-  console.log({ data })
-  return (
-    <Heading size="md" mb={16}>
-      Responses for {data?.title}
-    </Heading>
-  )
-}
-const FormResponsesPage = () => {
+import Link from "../../components/Link"
+
+const UserResponsesPage = () => {
   const router = useRouter()
   //   const { isLoading, error, data = [] } = useListForms()
-  const { isLoading, error, data = [] } = useFormResponses(router.query.id)
+  const { isLoading, error, data = [] } = useListResponses(router.query.id)
   console.log(data)
   if (isLoading) {
     return "loading..."
   }
   return (
     <Box w="100%">
-      <Header />
+      <Heading size="md" mb={16}>
+        Responses
+      </Heading>
       <Table>
         <Thead>
           <Tr>
-            <Th>DID</Th>
+            <Th>Form</Th>
             <Th>Created</Th>
             <Th>Data</Th>
           </Tr>
@@ -50,8 +42,15 @@ const FormResponsesPage = () => {
             // const id = form.id
             return (
               <Tr key={id}>
-                <Td>{response.metadata.controllers[0]}</Td>
-                <Td>{new Date(response.content.created).toLocaleString()}</Td>
+                <Td>
+                  <Link
+                    href={`/forms/${response.content.formId}`}
+                    color={"blue.500"}
+                  >
+                    {response.content.formId}
+                  </Link>
+                </Td>
+                <Td>{response.content.created}</Td>
                 <Td>
                   <Textarea sx={{ fontFamily: "monospace" }} fontSize={"xs"}>
                     {JSON.stringify(JSON.parse(response.content.data), null, 2)}
@@ -66,4 +65,4 @@ const FormResponsesPage = () => {
   )
 }
 
-export default FormResponsesPage
+export default UserResponsesPage

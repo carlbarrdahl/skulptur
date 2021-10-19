@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react"
 
 import NextLink from "next/link"
+import { useLogin } from "../hooks/auth"
 
 const NavLink = ({ children }) => (
   <Link
@@ -56,6 +57,7 @@ const NavBarLink = ({ children, href }) => {
 
 export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { login, isAuthenticated } = useLogin()
 
   return (
     <Flex p={4} bg={"gray.900"}>
@@ -70,23 +72,28 @@ export default function NavBar() {
       <Flex alignItems="center">
         <NavBarLink href={"/forms/new"}>New Form</NavBarLink>
         <NavBarLink href={"/forms"}>My Forms</NavBarLink>
+        <NavBarLink href={"/responses"}>My Responses</NavBarLink>
         <Box>
-          <Menu>
-            <MenuButton
-              as={Button}
-              rounded={"full"}
-              variant={"link"}
-              cursor={"pointer"}
-              minW={0}
-            >
-              <Avatar bg="gray.100" name="Carl" />
-            </MenuButton>
-            <MenuList>
-              <MenuItem>My Forms</MenuItem>
-              <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
-            </MenuList>
-          </Menu>
+          {false && !isAuthenticated ? (
+            <Button onClick={login}>Login</Button>
+          ) : (
+            <Menu>
+              <MenuButton
+                as={Button}
+                rounded={"full"}
+                variant={"link"}
+                cursor={"pointer"}
+                minW={0}
+              >
+                <Avatar bg="gray.100" name="Carl" />
+              </MenuButton>
+              <MenuList>
+                <MenuItem>My Forms</MenuItem>
+                <MenuDivider />
+                <MenuItem>Sign out</MenuItem>
+              </MenuList>
+            </Menu>
+          )}
         </Box>
       </Flex>
       {isOpen ? (

@@ -4,43 +4,46 @@ import { TileDocument } from "@ceramicnetwork/stream-tile"
 
 import { useCeramic } from "../providers/ceramic"
 
-const SERVER_DID = process.env.NEXT_PUBLIC_SERVER_DID
+import model from "../ceramic/model.json"
 
-console.log(SERVER_DID)
 export function useCreateForm() {
-  const { manager, dataModel, dataStore } = useCeramic()
+  const { ceramic, manager, dataModel, dataStore } = useCeramic()
 
   return useMutation(async (schema: any) => {
     console.log("creating form with schema:", schema)
-    return manager
-      .createSchema(schema.title, schema)
-      .then((schemaURI: string) => {
-        console.log("form created with schemaURI:", schemaURI)
-        return Promise.all([
-          dataModel.createTile("Form", {
-            title: schema.title,
-            description: schema.description,
-            created: new Date().toISOString(),
-            schemaURI,
-          }),
-          dataStore.get("forms"),
-        ]).then(async ([doc, formsList]) => {
-          console.log("form doc created", doc)
-          const formId = doc.id.toString()
-          console.log("appending form definition", formsList)
-          await dataStore.set("forms", {
-            forms: [
-              {
-                id: formId,
-                title: schema.title,
-              },
-              ...(formsList?.forms ?? []),
-            ],
-          })
 
-          console.log("form successfully created")
-          return formId
+    const doc = await TileDocument.create(ceramic, schema)
+    await ceramic.pin.add(doc.id)
+    console.log("schema created", doc.id)
+    const schemaURI = doc.id.toString()
+    const created = new Date().toISOString()
+    console.log("form created with schemaURI:", schemaURI)
+    return Promise.all([
+      dataModel.createTile("Form", {
+        title: schema.title,
+        description: schema.description,
+        created,
+        schemaURI,
+      }),
+      dataStore.get("forms"),
+    ])
+      .then(async ([doc, formsList]) => {
+        console.log("form doc created", doc)
+        const formId = doc.id.toString()
+        console.log("appending form definition", formsList)
+        await dataStore.set("forms", {
+          forms: [
+            {
+              id: formId,
+              title: schema.title,
+              created,
+            },
+            ...(formsList?.forms ?? []),
+          ],
         })
+
+        console.log("form successfully created")
+        return formId
       })
       .catch((err: Error) => {
         console.log("form failed to create", err)
@@ -125,15 +128,31 @@ export function useCreateResponse() {
   })
 }
 
-export function useListResponses(formId: any) {
+export function useFormResponses(formId: any) {
   const { ceramic, dataStore } = useCeramic()
   return useQuery("formResponses", () => {
-    console.log("loading server form responses", SERVER_DID)
-    return dataStore.get("formResponses", SERVER_DID).then((doc) => {
+    console.log("loading server form responses", model.did)
+    return dataStore.get("formResponses", model.did).then((doc) => {
       console.log("form responses", doc)
 
       return Promise.all(
         Object.keys(doc[formId] || {}).map((id) =>
+          TileDocument.load(ceramic, id).then((doc) => doc.state)
+        )
+      )
+    })
+  })
+}
+
+export function useListResponses(formId: any) {
+  const { ceramic, dataStore } = useCeramic()
+  return useQuery("responses", () => {
+    console.log("loading user responses")
+    return dataStore.get("responses").then((doc) => {
+      console.log("responses", doc)
+
+      return Promise.all(
+        (doc?.responses || []).map(({ id }) =>
           TileDocument.load(ceramic, id).then((doc) => doc.state)
         )
       )

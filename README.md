@@ -2,31 +2,22 @@
 
 Decentralized Google Forms built with Ceramic.
 
-## Architecture
+## Integration with other projects
 
-- LandingPage
+```js
+import model from "@skulptur/model"
 
-  - NavBar
-    - SignIn
-      - onClick - api.authenticate
+// Get all responses for all forms as a mapping: [formId]: responseId
+await dataStore.get(model.definitions.formResponses, model.did)
 
-- NewFormPage
+await dataStore.get(model.definitions.forms)
 
-  - NavBar
-    - CreateFormButton
-      - onClick - api.createForm
-  - Content
-    - SchemaEditor
-    - SchemaPreview
+// Get all responses for authenticated DID
+await dataStore.get(model.definitions.responses)
 
-- ViewFormPage
-
-  - NavBar
-  - Content
-    - SchemaPreview
-      - onSubmit - api.submitResponse
-
-- ListFormsPage
+// Load content of Tile
+await TileDocument.load(ceramic, "StreamID")
+```
 
 ## Getting Started
 

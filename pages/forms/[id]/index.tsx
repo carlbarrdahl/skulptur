@@ -9,10 +9,14 @@ export default function ViewFormPage() {
   const router = useRouter()
   const formId = router.query.id || ""
   const { isLoading, error, data }: any = useViewForm(formId)
-  const { mutateAsync: createResponse } = useCreateResponse()
+  const { isLoading: isCreating, mutateAsync: createResponse } =
+    useCreateResponse()
 
   if (isLoading) {
     return "loading..."
+  }
+  if (isCreating) {
+    return "Submitting response..."
   }
   if (error) {
     return <pre>{error.toString()}</pre>
@@ -24,7 +28,7 @@ export default function ViewFormPage() {
     createResponse({
       formId,
       data: JSON.stringify(data.formData),
-    })
+    }).then(() => router.push(`/forms/${formId}/thanks`))
   }
   return (
     <div>
