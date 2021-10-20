@@ -12,6 +12,8 @@ import dotenv from "dotenv"
 
 import modelAliases from "../../ceramic/model.json"
 
+import { ceramicURL } from "../../config"
+
 dotenv.config()
 
 // The seed must be provided as an environment variable
@@ -23,7 +25,7 @@ const did = new DID({
 })
 
 // Connect to the local Ceramic node
-const ceramic = new CeramicClient("http://localhost:7007")
+const ceramic = new CeramicClient(ceramicURL)
 ceramic.did = did
 
 const model = new DataModel({ ceramic, model: modelAliases })
@@ -53,7 +55,8 @@ export default async function handler(
         console.log("successfully updated", doc)
         return res.status(201).json({ status: "success", data: responses })
       })
+      .catch((err) => {
+        return res.status(500).send({ message: err.toString() })
+      })
   })
-
-  res.status(200).json({ name: "John Doe" })
 }

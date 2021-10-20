@@ -43,7 +43,7 @@ const FormResponsesPage = () => {
       <Box mb={8}>
         <Flex justifyContent="space-between">
           <Heading size="md" mb={4}>
-            Responses for {data?.title}
+            Responses
           </Heading>
           <Flex alignItems="center" mb={4}>
             <IconButton
