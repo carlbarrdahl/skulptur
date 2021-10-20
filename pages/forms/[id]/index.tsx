@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-
+import { Flex, Spinner, Text } from "@chakra-ui/react"
 import { useViewForm, useCreateResponse } from "../../../hooks/forms"
 
 import SchemaForm from "../../../components/SchemaForm"
@@ -14,10 +14,10 @@ export default function ViewFormPage() {
     useCreateResponse()
 
   if (isLoading) {
-    return "loading..."
+    // return "loading..."
   }
   if (isCreating) {
-    return "Submitting response..."
+    // return "Submitting response..."
   }
   if (error) {
     return <pre>{error.toString()}</pre>
@@ -33,9 +33,21 @@ export default function ViewFormPage() {
   }
   return (
     <Container>
-      <SchemaForm schema={data.schema} onSubmit={handleSubmit}>
-        <Button type="submit">Submit</Button>
-      </SchemaForm>
+      {isLoading ? (
+        <Flex justifyContent="center">
+          <Spinner mr={4} />
+          <Text>Loading form...</Text>
+        </Flex>
+      ) : isCreating ? (
+        <Flex justifyContent="center">
+          <Spinner mr={4} />
+          <Text>Submitting response...</Text>
+        </Flex>
+      ) : (
+        <SchemaForm schema={data.schema} onSubmit={handleSubmit}>
+          <Button type="submit">Submit</Button>
+        </SchemaForm>
+      )}
     </Container>
   )
 }

@@ -6,8 +6,10 @@ import {
   Tbody,
   Td,
   Box,
+  Flex,
   Heading,
   Skeleton,
+  Spinner,
   SkeletonText,
 } from "@chakra-ui/react"
 import type { NextPage } from "next"
@@ -24,10 +26,14 @@ import NotAuthorized from "../../components/NotAuthorized"
 
 const NumberResponses = ({ id }) => {
   const { isLoading, error, data } = useFormResponses(id)
-  console.log("res", data)
 
+  console.log("nrResponses", id, data)
   if (isLoading) {
-    return <div>...</div>
+    return (
+      <Flex justifyContent="flex-end">
+        <SkeletonText noOfLines={1} width={5} />
+      </Flex>
+    )
   }
   return <div>{Object.keys(data || {}).length}</div>
 }
@@ -45,7 +51,7 @@ const FormsListPage: NextPage = () => {
         <Thead>
           <Tr>
             <Th>Title</Th>
-            <Th isNumeric>Created</Th>
+            <Th isNumeric>Created at</Th>
             <Th isNumeric># Responses</Th>
           </Tr>
         </Thead>
@@ -78,7 +84,7 @@ const FormsListPage: NextPage = () => {
                       {form.title || ""}
                     </Link>
                   </Td>
-                  <Td isNumeric>{form.created}</Td>
+                  <Td isNumeric>{new Date(form.created).toLocaleString()}</Td>
                   <Td isNumeric>
                     <NumberResponses id={id} />
                   </Td>

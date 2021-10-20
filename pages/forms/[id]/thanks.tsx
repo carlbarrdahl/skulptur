@@ -5,7 +5,7 @@ export default function ThanksPage() {
   return (
     <Container>
       <Box>
-        <Heading>Thank you!</Heading>
+        <Heading mb={4}>Thank you!</Heading>
         <Text>Your response has been saved.</Text>
       </Box>
     </Container>

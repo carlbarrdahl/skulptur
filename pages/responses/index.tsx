@@ -21,23 +21,23 @@ import NotAuthorized from "../../components/NotAuthorized"
 
 const UserResponsesPage = () => {
   const router = useRouter()
-  //   const { isLoading, error, data = [] } = useListForms()
   const {
     isLoading,
     error,
     data = [],
     refetch,
   } = useListResponses(router.query.id)
+
   return (
     <Container>
-      <Heading size="md" mb={16}>
-        Responses
+      <Heading size="md" mb={8}>
+        My Responses
       </Heading>
       <Table>
         <Thead>
           <Tr>
-            <Th>Form</Th>
-            <Th>Created</Th>
+            <Th>Form id</Th>
+            <Th>Created at</Th>
             <Th>Data</Th>
           </Tr>
         </Thead>
@@ -73,7 +73,7 @@ const UserResponsesPage = () => {
                       {response.content.formId}
                     </Link>
                   </Td>
-                  <Td>{response.content.created}</Td>
+                  <Td>{new Date(response.content.created).toLocaleString()}</Td>
                   <Td>
                     <Textarea sx={{ fontFamily: "monospace" }} fontSize={"xs"}>
                       {JSON.stringify(

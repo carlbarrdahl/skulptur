@@ -130,7 +130,7 @@ export function useCreateResponse() {
 
 export function useFormResponses(formId: any) {
   const { ceramic, dataStore } = useCeramic()
-  return useQuery("formResponses", () => {
+  return useQuery(["formResponses", formId], () => {
     console.log("loading server form responses", model.did)
     return dataStore.get("formResponses", model.did).then((doc) => {
       console.log("form responses", doc, formId, doc[formId])
