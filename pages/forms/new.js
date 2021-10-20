@@ -54,6 +54,7 @@ const examples = [
       title: {
         type: "string",
         title: "Task list title",
+        default: "My list",
       },
       tasks: {
         type: "array",
