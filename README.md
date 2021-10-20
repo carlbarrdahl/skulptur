@@ -2,16 +2,24 @@
 
 Decentralized Google Forms built with Ceramic.
 
+- Demo: https://skulptur.vercel.app
+- Video: https://www.loom.com/share/fb8389bd8f0841eab813eae8497da265
+
 ![](screenshot.png)
 
 ## Integration with other projects
 
 ```js
-import model from "@skulptur/model"
+import model from "@skulptur/model" // not actually an npm package yet
 
 // Get all responses for all forms as a mapping: [formId]: responseId
 await dataStore.get(model.definitions.formResponses, model.did)
-
+{
+    "<formDocId>": {
+        "<responseDocId_A>": "<responseDocId_A",
+        "<responseDocId_B>": "<responseDocId_B",
+    }
+}
 // Get all created forms for authenticated DID
 await dataStore.get(model.definitions.forms)
 
@@ -19,7 +27,7 @@ await dataStore.get(model.definitions.forms)
 await dataStore.get(model.definitions.responses)
 
 // Load content of Tile
-await TileDocument.load(ceramic, "StreamID")
+await TileDocument.load(ceramic, "<docId>")
 ```
 
 ## Getting Started
