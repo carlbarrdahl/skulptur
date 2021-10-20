@@ -46,7 +46,7 @@ const examples = [
   
   You can now copy the share link and send to your friend.`,
     type: "object",
-    required: ["title"],
+    required: ["answer"],
     properties: {
       question: {
         type: "string",

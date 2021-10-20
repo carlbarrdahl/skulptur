@@ -62,8 +62,8 @@ const NavBarLink = ({ children, href }) => {
 export default function NavBar() {
   const [seed, setSeed] = useState("")
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { login, isAuthenticated } = useSeedLogin()
-  // const { login, isAuthenticated } = useLogin()
+  const seedLogin = useSeedLogin()
+  const walletLogin = useLogin()
   return (
     <Flex p={4} bg={"gray.900"}>
       <Flex p="2" alignItems="center">
@@ -79,7 +79,7 @@ export default function NavBar() {
         <NavBarLink href={"/forms"}>My Forms</NavBarLink>
         <NavBarLink href={"/responses"}>My Responses</NavBarLink>
         <Box>
-          {!isAuthenticated ? (
+          {!(seedLogin.isAuthenticated || walletLogin.isAuthenticated) ? (
             <Menu>
               <MenuButton>
                 <Button>Login</Button>
@@ -87,19 +87,23 @@ export default function NavBar() {
               <MenuList>
                 <chakra.ul px={6} sx={{ listStyle: "none" }}>
                   <chakra.li
-                    onClick={(e) => login(e.target.textContent)}
+                    onClick={(e) => seedLogin.login(e.target.textContent)}
                     sx={{ _hover: { opacity: 0.5, cursor: "pointer" } }}
                   >
                     556fa1ca897aa822f2ffb60e23813e21e42089abb375f437244922afe131e76c
                   </chakra.li>
                   <chakra.li
-                    onClick={(e) => login(e.target.textContent)}
+                    onClick={(e) => seedLogin.login(e.target.textContent)}
                     sx={{ _hover: { opacity: 0.5, cursor: "pointer" } }}
                   >
                     da44b1b11005e27453b3010861cb578d8603c5d6a360bb029685ee0a4f66b3cc
                   </chakra.li>
                 </chakra.ul>
-                <InputGroup as={"form"} onSubmit={() => login(seed)} px={4}>
+                <InputGroup
+                  as={"form"}
+                  onSubmit={() => seedLogin.login(seed)}
+                  px={4}
+                >
                   <Input
                     autoFocus
                     value={seed}
@@ -107,6 +111,11 @@ export default function NavBar() {
                     placeholder="Enter seed"
                   />
                 </InputGroup>
+                <Flex justifyContent="flex-end" p={4}>
+                  <Button onClick={walletLogin.login}>
+                    Sign in with Metamask
+                  </Button>
+                </Flex>
               </MenuList>
             </Menu>
           ) : (

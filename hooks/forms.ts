@@ -133,11 +133,14 @@ export function useFormResponses(formId: any) {
   return useQuery("formResponses", () => {
     console.log("loading server form responses", model.did)
     return dataStore.get("formResponses", model.did).then((doc) => {
-      console.log("form responses", doc)
-
+      console.log("form responses", doc, formId, doc[formId])
+      // return doc
       return Promise.all(
         Object.keys(doc[formId] || {}).map((id) =>
-          TileDocument.load(ceramic, id).then((doc) => doc.state)
+          TileDocument.load(ceramic, id).then((doc) => {
+            console.log("response", doc)
+            return doc.state
+          })
         )
       )
     })

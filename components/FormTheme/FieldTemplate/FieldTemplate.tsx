@@ -19,7 +19,6 @@ const FieldTemplate = ({
   rawHelp,
   ...props
 }: FieldTemplateProps) => {
-  console.log("FIELD", props.rawDescription)
   return (
     <FormControl
       isDisabled={disabled}

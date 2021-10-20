@@ -29,16 +29,13 @@ const NumberResponses = ({ id }) => {
   if (isLoading) {
     return <div>...</div>
   }
-  return <div>{data?.length}</div>
+  return <div>{Object.keys(data || {}).length}</div>
 }
 
 const FormsListPage: NextPage = () => {
   const { isLoading, error, data = [], refetch } = useListForms()
 
   console.log(data)
-  if (error?.message.includes("not authenticated")) {
-    // return <NotAuthorized retry={refetch} />
-  }
   return (
     <Container>
       <Heading size="md" mb={16}>
