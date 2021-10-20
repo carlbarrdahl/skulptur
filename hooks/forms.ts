@@ -98,7 +98,6 @@ export function useCreateResponse() {
         const id = doc.id.toString()
         console.log("appending responses to definition", responsesList)
 
-        console.log("asd", id, formId)
         await dataStore.set("responses", {
           responses: [
             {
