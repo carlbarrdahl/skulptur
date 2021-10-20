@@ -22,13 +22,13 @@ const Home: NextPage = () => {
     <div>
       <Stack minH={"100vh"} direction={{ base: "column", md: "row" }}>
         <Flex p={8} flex={1} justify={"center"}>
-          <Stack w={"full"} maxW={"lg"}>
-            <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }} mb={0}>
+          <Box mt={8}>
+            <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }} mb={4}>
               <Text as={"span"} position={"relative"}>
                 Decentralized Forms
               </Text>
             </Heading>
-            <Text fontSize={{ base: "md", lg: "lg" }} color={"gray.500"}>
+            <Text fontSize={{ base: "md", lg: "xl" }} color={"gray.500"} mb={8}>
               Create forms and surveys with json-schemas and share with your
               friends
             </Text>
@@ -48,7 +48,7 @@ const Home: NextPage = () => {
               </NextLink>
               <Button variant="outline">How It Works</Button>
             </Stack>
-          </Stack>
+          </Box>
         </Flex>
         <Flex flex={1}>
           <Image

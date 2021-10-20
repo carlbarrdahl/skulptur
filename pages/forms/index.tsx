@@ -44,7 +44,7 @@ const FormsListPage: NextPage = () => {
   console.log(data)
   return (
     <Container>
-      <Heading size="md" mb={16}>
+      <Heading size="md" mb={8}>
         My Forms
       </Heading>
       <Table>
