@@ -10,7 +10,7 @@ Decentralized Google Forms built with Ceramic.
 ## Integration with other projects
 
 ```js
-import model from "@skulptur/model" // not actually an npm package yet
+import model from "@skulptur/model" // note: not actually an npm package yet
 
 // Get all responses for all forms as a mapping: [formId]: responseId
 await dataStore.get(model.definitions.formResponses, model.did)
@@ -29,6 +29,11 @@ await dataStore.get(model.definitions.responses)
 // Load content of Tile
 await TileDocument.load(ceramic, "<docId>")
 ```
+
+#### Created as a submission to Ceramic's Sovereign Data Hackathon
+
+- Link:
+  https://gitcoin.co/hackathon/ceramic-identity/projects/11339/skulptur
 
 ## Getting Started
 
