@@ -2,6 +2,10 @@
 
 Decentralized Google Forms built with Ceramic.
 
+_Winner of [**Open Prize: Best Hack Using Self.ID Or Glaze**](https://gitcoin.co/issue/ceramicnetwork/ceramic/102/100026730) in [Sovereign Data Hackathon](https://gitcoin.co/hackathon/ceramic-identity)_
+
+---
+
 - Demo: https://skulptur.vercel.app
 - Video: https://www.loom.com/share/fb8389bd8f0841eab813eae8497da265
 
